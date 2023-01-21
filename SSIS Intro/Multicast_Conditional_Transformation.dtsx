@@ -1,0 +1,1941 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/16/2023 11:21:45 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="AMAN"
+  DTS:CreatorName="AMAN\amans"
+  DTS:DTSID="{1ACA1637-37B9-4077-A140-B19237A02E42}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5035.3"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Multicast_Conditional_Transformation"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{754D4E8D-5875-4F41-B220-48E0E048777C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.SSISDemoDB_Destination]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9B23999E-81AC-44F8-BA3F-AB3BD27EDABC}"
+      DTS:ObjectName="LocalHost.SSISDemoDB_Destination">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=SSISDemoDB_Destination;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{9B23999E-81AC-44F8-BA3F-AB3BD27EDABC}LocalHost.SSISDemoDB_Destination;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.SSISDemoDB_Source]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8438CF57-2B0E-4F76-9806-06985C1C3301}"
+      DTS:ObjectName="LocalHost.SSISDemoDB_Source">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=SSISDemoDB_Source;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{8438CF57-2B0E-4F76-9806-06985C1C3301}LocalHost.SSISDemoDB_Source;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.TestDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A715BBD4-932E-45AE-9C05-26DD0191CDA7}"
+      DTS:ObjectName="LocalHost.TestDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=TestDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{A715BBD4-932E-45AE-9C05-26DD0191CDA7}LocalHost.TestDB;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{4615B28F-1F78-4CE4-A869-824178DA1AC4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9B23999E-81AC-44F8-BA3F-AB3BD27EDABC}"
+          SQLTask:SqlStatementSource="DELETE FROM dbo.SalesData_Target" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data to Target DB from Source DB"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{AD5CA823-5F5F-458E-8EC7-37F4FC385717}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data to Target DB from Source DB"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Character Map"
+              componentClassID="Microsoft.CharacterMap"
+              contactInfo="Character Map;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Specifies the string operations to apply."
+              name="Character Map"
+              usesDispositions="true"
+              version="2">
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Character Map.Inputs[Character Map Input]"
+                  name="Character Map Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Character Map.Inputs[Character Map Input].Columns[LocationCode]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LocationCode"
+                      errorOrTruncationOperation="Map Column"
+                      lineageId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output].Columns[LocationCode]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.UInt32"
+                          name="MapFlags"
+                          typeConverter="LCMappingType">512</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Output]"
+                  exclusionGroup="1"
+                  name="Character Map Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Character Map.Inputs[Character Map Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Character Map Error Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Character Map.Inputs[Character Map Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Copy Column"
+              componentClassID="Microsoft.CopyMap"
+              contactInfo="Copy Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Copies input columns to new columns in the transformation output. For example, create a copy of the 'address' column so that it can be cleaned by subsequent transformations and leave the original column in place for auditing."
+              name="Copy Column">
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Copy Column.Inputs[Copy Column Input]"
+                  name="Copy Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Copy Column.Inputs[Copy Column Input].Columns[Receipt No.]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Receipt No."
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output]"
+                  name="Copy Column Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Copy Column.Inputs[Copy Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output].Columns[Copy of Receipt No.]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output].Columns[Copy of Receipt No.]"
+                      name="Copy of Receipt No.">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the column to copy."
+                          name="copyColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Data Conversion.Inputs[Data Conversion Input].Columns[Receipt No.]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Receipt No."
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output].Columns[Conv_Receipt No.]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output].Columns[Conv_Receipt No.]"
+                      name="Conv_Receipt No."
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Derived Column.Inputs[Derived Column Input].Columns[Location]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Location"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output].Columns[LocationCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output].Columns[LocationCode]"
+                      name="LocationCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEFT](#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]},3)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEFT(Location,3)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Multicast"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast">
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Multicast.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Multicast.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Multicast.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[SaleDate]"
+                      cachedDataType="dbDate"
+                      cachedName="SaleDate"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[SaleDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Receipt No.]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Receipt No."
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[OrderType Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OrderType Name"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[OrderType Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Product Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Product Name"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Quantity]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Sales Amount]"
+                      cachedDataType="i4"
+                      cachedName="Sales Amount"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Sales Amount]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Location]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Location"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Profit]"
+                      cachedDataType="i4"
+                      cachedName="Profit"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Profit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Product Category]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Product Category"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Cost Amount]"
+                      cachedDataType="i4"
+                      cachedName="Cost Amount"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Cost Amount]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Conv_Receipt No.]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Conv_Receipt No."
+                      lineageId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output].Columns[Conv_Receipt No.]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[LocationCode]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LocationCode"
+                      lineageId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output].Columns[LocationCode]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input].Columns[Copy of Receipt No.]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of Receipt No."
+                      lineageId="Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output].Columns[Copy of Receipt No.]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[SaleDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[SaleDate]"
+                      name="SaleDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[SaleDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Receipt No.]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Receipt No.]"
+                      name="Receipt No."
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[OrderType Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[OrderType Name]"
+                      name="OrderType Name">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[OrderType Name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Name]"
+                      name="Product Name">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Quantity]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Quantity]"
+                      name="Quantity">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Quantity]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Sales Amount]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Sales Amount]"
+                      name="Sales Amount">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Sales Amount]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Location]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Location]"
+                      name="Location">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Profit]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Profit]"
+                      name="Profit">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Profit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Category]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Category]"
+                      name="Product Category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Cost Amount]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Cost Amount]"
+                      name="Cost Amount">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Cost Amount]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Conv_Receipt No.]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Conv_Receipt No.]"
+                      name="Conv_Receipt No.">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output].Columns[Conv_Receipt No.]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[LocationCode]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[LocationCode]"
+                      name="LocationCode">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output].Columns[LocationCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Copy of Receipt No.]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Copy of Receipt No.]"
+                      name="Copy of Receipt No.">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output].Columns[Copy of Receipt No.]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="SSISDemoDB_Destination Data"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[SalesData_Target]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.SSISDemoDB_Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.SSISDemoDB_Destination]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[SaleDate]"
+                      cachedDataType="dbDate"
+                      cachedName="SaleDate"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[SaleDate]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[SaleDate]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[OrderType Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OrderType Name"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[OrderType Name]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[OrderType Name]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[Sales Amount]"
+                      cachedDataType="i4"
+                      cachedName="Sales Amount"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Sales Amount]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Sales Amount]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[Location]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Location"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Location]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[Product Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Product Name"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Item Name]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Name]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[Conv_Receipt No.]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Conv_Receipt No."
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Receipt No.]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Conv_Receipt No.]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].Columns[LocationCode]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LocationCode"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[LocationCode]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[LocationCode]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[SaleDate]"
+                      dataType="dbDate"
+                      name="SaleDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Receipt No.]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Receipt No." />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[OrderType Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="OrderType Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Item Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Item Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Sales Amount]"
+                      dataType="i4"
+                      name="Sales Amount" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                      dataType="wstr"
+                      length="50"
+                      name="Location" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input].ExternalColumns[LocationCode]"
+                      dataType="wstr"
+                      length="3"
+                      name="LocationCode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SSISDemoDB_Source Data"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[SalesData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.SSISDemoDB_Source]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.SSISDemoDB_Source]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[SaleDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[SaleDate]"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[SaleDate]"
+                      name="SaleDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Receipt No.]"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Receipt No.]"
+                      name="Receipt No."
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[OrderType Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[OrderType Name]"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[OrderType Name]"
+                      name="OrderType Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Product Name]"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Name]"
+                      name="Product Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      name="Quantity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Sales Amount]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Sales Amount]"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Sales Amount]"
+                      name="Sales Amount"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Location]"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Location]"
+                      name="Location"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Profit]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Profit]"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Profit]"
+                      name="Profit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Product Category]"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Product Category]"
+                      name="Product Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Cost Amount]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Cost Amount]"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].Columns[Cost Amount]"
+                      name="Cost Amount"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[SaleDate]"
+                      dataType="dbDate"
+                      name="SaleDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Receipt No.]"
+                      dataType="wstr"
+                      length="50"
+                      name="Receipt No." />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[OrderType Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="OrderType Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Product Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Product Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Sales Amount]"
+                      dataType="i4"
+                      name="Sales Amount" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Location]"
+                      dataType="wstr"
+                      length="50"
+                      name="Location" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Profit]"
+                      dataType="i4"
+                      name="Profit" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Product Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Product Category" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Cost Per Unit]"
+                      dataType="i4"
+                      name="Cost Per Unit" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Selling Per Unit]"
+                      dataType="i4"
+                      name="Selling Per Unit" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output].ExternalColumns[Cost Amount]"
+                      dataType="i4"
+                      name="Cost Amount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[SaleDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[SaleDate]"
+                      name="SaleDate" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Receipt No.]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Receipt No.]"
+                      name="Receipt No." />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[OrderType Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[OrderType Name]"
+                      name="OrderType Name" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Product Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Product Name]"
+                      name="Product Name" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      name="Quantity" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Sales Amount]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Sales Amount]"
+                      name="Sales Amount" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Location]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Location]"
+                      name="Location" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Profit]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Profit]"
+                      name="Profit" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Product Category]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Product Category]"
+                      name="Product Category" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Cost Amount]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[Cost Amount]"
+                      name="Cost Amount" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data to Target DB from Source DB\TestDB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="TestDB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[SalesData_Target]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.TestDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.TestDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[SaleDate]"
+                      cachedDataType="dbDate"
+                      cachedName="SaleDate"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SaleDate]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[SaleDate]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[OrderType Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OrderType Name"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OrderType Name]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[OrderType Name]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[Sales Amount]"
+                      cachedDataType="i4"
+                      cachedName="Sales Amount"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Sales Amount]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Sales Amount]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[Location]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Location"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Location]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[LocationCode]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LocationCode"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LocationCode]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[LocationCode]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[Product Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Product Name"
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Item Name]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Product Name]" />
+                    <inputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].Columns[Conv_Receipt No.]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Conv_Receipt No."
+                      externalMetadataColumnId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Receipt No.]"
+                      lineageId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output].Columns[Conv_Receipt No.]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SaleDate]"
+                      dataType="dbDate"
+                      name="SaleDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Receipt No.]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Receipt No." />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OrderType Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="OrderType Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Item Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Item Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Sales Amount]"
+                      dataType="i4"
+                      name="Sales Amount" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                      dataType="wstr"
+                      length="50"
+                      name="Location" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LocationCode]"
+                      dataType="wstr"
+                      length="3"
+                      name="LocationCode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\TestDB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data to Target DB from Source DB\TestDB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data to Target DB from Source DB\TestDB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Character Map Output]"
+              endId="Package\Load Data to Target DB from Source DB\Sort.Inputs[Sort Input]"
+              name="Character Map Output"
+              startId="Package\Load Data to Target DB from Source DB\Character Map.Outputs[Character Map Output]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Copy Column Output]"
+              endId="Package\Load Data to Target DB from Source DB\Character Map.Inputs[Character Map Input]"
+              name="Copy Column Output"
+              startId="Package\Load Data to Target DB from Source DB\Copy Column.Outputs[Copy Column Output]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Data Conversion Output]"
+              endId="Package\Load Data to Target DB from Source DB\Derived Column.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\Load Data to Target DB from Source DB\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Derived Column Output]"
+              endId="Package\Load Data to Target DB from Source DB\Copy Column.Inputs[Copy Column Input]"
+              name="Derived Column Output"
+              startId="Package\Load Data to Target DB from Source DB\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Multicast Output 1]"
+              endId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 1"
+              startId="Package\Load Data to Target DB from Source DB\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Multicast Output 2]"
+              endId="Package\Load Data to Target DB from Source DB\TestDB Destination.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 2"
+              startId="Package\Load Data to Target DB from Source DB\Multicast.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[OLE DB Source Output]"
+              endId="Package\Load Data to Target DB from Source DB\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Data to Target DB from Source DB.Paths[Sort Output]"
+              endId="Package\Load Data to Target DB from Source DB\Multicast.Inputs[Multicast Input 1]"
+              name="Sort Output"
+              startId="Package\Load Data to Target DB from Source DB\Sort.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9A666942-8FF6-41FF-B218-4FF19D3BFBBC}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data to Target DB from Source DB" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\Execute SQL Task"
+          TopLeft="156.874992987141,19.1578945264922" />
+        <NodeLayout
+          Size="270.666666666667,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB"
+          TopLeft="127.374994551763,106.078946264084" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="240.874992987141,61.8245611931589">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="21.8333348979551,44.2543850709251"
+              Start="0,0"
+              End="21.8333348979551,36.7543850709251">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.1271925354626" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.1271925354626"
+                    Point2="0,22.1271925354626"
+                    Point3="4,22.1271925354626" />
+                  <mssgle:LineSegment
+                    End="17.8333348979551,22.1271925354626" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17.8333348979551,22.1271925354626"
+                    Point2="21.8333348979551,22.1271925354626"
+                    Point3="21.8333348979551,26.1271925354626" />
+                  <mssgle:LineSegment
+                    End="21.8333348979551,36.7543850709251" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Data to Target DB from Source DB">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Data Conversion"
+          TopLeft="15.6249993015081,59.8070170555479" />
+        <NodeLayout
+          Size="144,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Copy Column"
+          TopLeft="18.7499991618097,130.298244344423" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Derived Column"
+          TopLeft="346.87498449348,60.2105256546898" />
+        <NodeLayout
+          Size="98.6666666666667,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Sort"
+          TopLeft="190.749991897494,162.482454577752" />
+        <NodeLayout
+          Size="232,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data"
+          TopLeft="17.3750008102512,348.184207093105" />
+        <NodeLayout
+          Size="212,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data"
+          TopLeft="164.874992875383,7.55263155640989" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Character Map"
+          TopLeft="356.833318245908,128.245612788013" />
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Character Map Output]"
+          TopLeft="356.833318245908,155.356723899124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-67.4166596817475,28.4590640119605"
+              Start="0,0"
+              End="-59.9166596817475,28.4590640119605">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-24.4287119139899,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-24.4287119139899,0"
+                    Point2="-28.4287119139899,0"
+                    Point3="-28.4287119139899,4" />
+                  <mssgle:LineSegment
+                    End="-28.4287119139899,24.4590640119605" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-28.4287119139899,24.4590640119605"
+                    Point2="-28.4287119139899,28.4590640119605"
+                    Point3="-32.4287119139899,28.4590640119605" />
+                  <mssgle:LineSegment
+                    End="-59.9166596817475,28.4590640119605" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[OLE DB Source Output]"
+          TopLeft="164.874992875383,28.8859648897432">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-69.9166602405412,30.9210521658047"
+              Start="0,0"
+              End="-69.9166602405412,23.4210521658047">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-65.9166602405412,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-65.9166602405412,0"
+                    Point2="-69.9166602405412,0"
+                    Point3="-69.9166602405412,4" />
+                  <mssgle:LineSegment
+                    End="-69.9166602405412,23.4210521658047" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Derived Column Output]"
+          TopLeft="424.87498449348,102.877192321356">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-334.12498533167,27.4210520230667"
+              Start="0,0"
+              End="-334.12498533167,19.9210520230667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.71052601153336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.71052601153336"
+                    Point2="0,13.7105260115334"
+                    Point3="-4,13.7105260115334" />
+                  <mssgle:LineSegment
+                    End="-330.12498533167,13.7105260115334" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-330.12498533167,13.7105260115334"
+                    Point2="-334.12498533167,13.7105260115334"
+                    Point3="-334.12498533167,17.7105260115334" />
+                  <mssgle:LineSegment
+                    End="-334.12498533167,19.9210520230667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Data Conversion Output]"
+          TopLeft="174.291665968175,81.3421046884522">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="172.583318525305,0"
+              Start="0,0"
+              End="165.083318525305,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="165.083318525305,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Copy Column Output]"
+          TopLeft="162.74999916181,147.716373010663">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="194.083319084098,0"
+              Start="0,0"
+              End="186.583319084098,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="186.583319084098,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="121.333333333334,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\Multicast"
+          TopLeft="182.999992065132,245.885963034157" />
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Sort Output]"
+          TopLeft="241.874991981313,205.149121244419">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.7368417897379"
+              Start="0,0"
+              End="0,33.2368417897379">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.2368417897379" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load Data to Target DB from Source DB\TestDB Destination"
+          TopLeft="279.874987734482,355.145468804826" />
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Multicast Output 1]"
+          TopLeft="243.666658731799,288.552629700823">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-110.291657921547,59.6315773922815"
+              Start="0,0"
+              End="-110.291657921547,52.1315773922815">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.8157886961408" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.8157886961408"
+                    Point2="0,29.8157886961408"
+                    Point3="-4,29.8157886961408" />
+                  <mssgle:LineSegment
+                    End="-106.291657921547,29.8157886961408" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-106.291657921547,29.8157886961408"
+                    Point2="-110.291657921547,29.8157886961408"
+                    Point3="-110.291657921547,33.8157886961408" />
+                  <mssgle:LineSegment
+                    End="-110.291657921547,52.1315773922815" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data to Target DB from Source DB.Paths[Multicast Output 2]"
+          TopLeft="262.555547620687,288.552629700823">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="103.319440113795,66.5928391040031"
+              Start="0,0"
+              End="103.319440113795,59.0928391040031">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1571664892681" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1571664892681"
+                    Point2="0,27.1571664892681"
+                    Point3="4,27.1571664892681" />
+                  <mssgle:LineSegment
+                    End="99.3194401137946,27.1571664892681" />
+                  <mssgle:CubicBezierSegment
+                    Point1="99.3194401137946,27.1571664892681"
+                    Point2="103.319440113795,27.1571664892681"
+                    Point3="103.319440113795,31.1571664892681" />
+                  <mssgle:LineSegment
+                    End="103.319440113795,59.0928391040031" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data to Target DB from Source DB\SSISDemoDB_Destination Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data to Target DB from Source DB\SSISDemoDB_Source Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data to Target DB from Source DB\TestDB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
