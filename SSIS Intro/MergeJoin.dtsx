@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="MergeJoin"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{89C4D0F6-FE9C-4B5B-A19E-A4B2C0EA24D6}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{F3C002E6-06C0-4449-9469-A2009D657098}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -395,7 +395,7 @@
                   dataType="System.Int32"
                   description="Specifies the type of join to perform."
                   name="JoinType"
-                  typeConverter="JoinType">2</property>
+                  typeConverter="JoinType">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the number of columns in the ordering key."
@@ -1078,7 +1078,34 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table GOT_CHARACTER_MST in Target DB"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{76CB9692-162B-4D60-9A34-CAE6BBAA98F6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table GOT_CHARACTER_MST in Target DB"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{2FF9A580-DECE-42E3-9F83-271AFD2EA86B}"
+          SQLTask:SqlStatementSource="DELETE FROM [dbo].[GOT_CHARACTER_MST]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A74CC49A-089D-4861-A919-C7E675CA38DA}"
+      DTS:From="Package\Truncate Table GOT_CHARACTER_MST in Target DB"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Merge Character MST and House MST from Source and transfer it to Target DB" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -1090,11 +1117,49 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="456,42.6666666666667"
           Id="Package\Merge Character MST and House MST from Source and transfer it to Target DB"
-          TopLeft="94.8749960046263,80.7631570683622" />
+          TopLeft="56.1249977368862,168.342103475184" />
+        <NodeLayout
+          Size="340,42.6666666666667"
+          Id="Package\Truncate Table GOT_CHARACTER_MST in Target DB"
+          TopLeft="33.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="203.5,48.1666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80.6249977368862,120.175436808517"
+              Start="0,0"
+              End="80.6249977368862,112.675436808517">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.0877184042585" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.0877184042585"
+                    Point2="0,60.0877184042585"
+                    Point3="4,60.0877184042585" />
+                  <mssgle:LineSegment
+                    End="76.6249977368862,60.0877184042585" />
+                  <mssgle:CubicBezierSegment
+                    Point1="76.6249977368862,60.0877184042585"
+                    Point2="80.6249977368862,60.0877184042585"
+                    Point3="80.6249977368862,64.0877184042585" />
+                  <mssgle:LineSegment
+                    End="80.6249977368862,112.675436808517" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
